@@ -31,9 +31,13 @@ AES (Advanced Encryption Standard) and RSA (Rivest-Shamir-Adleman) serve differe
  
 ## Padding
 Padding in encryption is used to ensure that plaintext data conforms to the block size required by the encryption algorithm. Without padding, data that does not meet the block size requirements could lead to incomplete or inaccurate encryption. Common padding schemes include PKCS#7 and Zero Padding.
-CBC and Padding Oracle
+
+## CBC and Padding Oracle
 Cipher Block Chaining (CBC) mode is a common block cipher mode that uses an initialization vector (IV) and chains the encryption of each block to the previous block. This ensures that identical plaintext blocks produce different ciphertext blocks.
-However, CBC mode is vulnerable to padding oracle attacks, where an attacker can exploit the padding scheme to decrypt ciphertext without knowing the encryption key. Mitigation involves implementing proper padding validation and error handling.
+
+However, CBC mode is vulnerable to padding oracle attacks, where an attacker can exploit the padding scheme to decrypt ciphertext without knowing the encryption key.  The attacker sends modified ciphertexts to the server and observes the server’s response to determine whether the padding is correct. By systematically altering the ciphertext and analyzing the server’s error messages, the attacker can eventually decipher the entire message. Proper padding validation and error handling are crucial to mitigating this vulnerability.
+
+CBC was also suffered from Timing attack.  By measuring how long it takes for the system to encrypt or decrypt data, an attacker can infer information about the cryptographic keys or the plaintext. This type of attack typically requires many attempts and precise timing measurements, but it can be effective against poorly implemented cryptographic systems. 
 
 ## Galois/Counter Mode (GCM)
 Galois/Counter Mode (GCM) is an advanced mode of operation for symmetric key cryptographic block ciphers. GCM provides both confidentiality and data integrity, making it suitable for secure communication in various applications. Unlike CBC, GCM is resistant to padding oracle attacks and is designed to be highly efficient on hardware.
